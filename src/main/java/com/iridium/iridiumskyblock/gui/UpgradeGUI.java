@@ -3,7 +3,9 @@ package com.iridium.iridiumskyblock.gui;
 import com.iridium.iridiumskyblock.IridiumSkyblock;
 import com.iridium.iridiumskyblock.Island;
 import com.iridium.iridiumskyblock.Utils;
+import com.iridium.iridiumskyblock.api.IslandUpgradeEvent;
 import com.iridium.iridiumskyblock.configs.Upgrades;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -44,6 +46,11 @@ public class UpgradeGUI extends GUI implements Listener {
                 if (IridiumSkyblock.getUpgrades().sizeUpgrade.upgrades.containsKey(getIsland().getSizeLevel() + 1)) {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().sizeUpgrade.upgrades.get(getIsland().getSizeLevel() + 1);
                     if (Utils.canBuy(p, upgrade.vaultCost, upgrade.crystalsCost)) {
+                        IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.ISLAND_SIZE);
+                        Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
+                        if(islandUpgradeEvent.isCancelled()) {
+                            return;
+                        }
                         getIsland().setSizeLevel(getIsland().getSizeLevel() + 1);
                     } else {
                         e.getWhoClicked().sendMessage(Utils.color(IridiumSkyblock.getMessages().notEnoughCrystals.replace("%prefix%", IridiumSkyblock.getConfiguration().prefix)));
@@ -56,6 +63,11 @@ public class UpgradeGUI extends GUI implements Listener {
                 if (IridiumSkyblock.getUpgrades().memberUpgrade.upgrades.containsKey(getIsland().getMemberLevel() + 1)) {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().memberUpgrade.upgrades.get(getIsland().getMemberLevel() + 1);
                     if (Utils.canBuy(p, upgrade.vaultCost, upgrade.crystalsCost)) {
+                        IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.MEMBER_SIZE);
+                        Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
+                        if(islandUpgradeEvent.isCancelled()) {
+                            return;
+                        }
                         getIsland().setMemberLevel(getIsland().getMemberLevel() + 1);
                     } else {
                         e.getWhoClicked().sendMessage(Utils.color(IridiumSkyblock.getMessages().notEnoughCrystals.replace("%prefix%", IridiumSkyblock.getConfiguration().prefix)));
@@ -68,6 +80,11 @@ public class UpgradeGUI extends GUI implements Listener {
                 if (IridiumSkyblock.getUpgrades().warpUpgrade.upgrades.containsKey(getIsland().getWarpLevel() + 1)) {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().warpUpgrade.upgrades.get(getIsland().getWarpLevel() + 1);
                     if (Utils.canBuy(p, upgrade.vaultCost, upgrade.crystalsCost)) {
+                        IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.WARPS);
+                        Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
+                        if(islandUpgradeEvent.isCancelled()) {
+                            return;
+                        }
                         getIsland().setWarpLevel(getIsland().getWarpLevel() + 1);
                     } else {
                         e.getWhoClicked().sendMessage(Utils.color(IridiumSkyblock.getMessages().notEnoughCrystals.replace("%prefix%", IridiumSkyblock.getConfiguration().prefix)));
@@ -80,6 +97,11 @@ public class UpgradeGUI extends GUI implements Listener {
                 if (IridiumSkyblock.getUpgrades().oresUpgrade.upgrades.containsKey(getIsland().getOreLevel() + 1)) {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().oresUpgrade.upgrades.get(getIsland().getOreLevel() + 1);
                     if (Utils.canBuy(p, upgrade.vaultCost, upgrade.crystalsCost)) {
+                        IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.GENERATOR);
+                        Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
+                        if(islandUpgradeEvent.isCancelled()) {
+                            return;
+                        }
                         getIsland().setOreLevel(getIsland().getOreLevel() + 1);
                     } else {
                         e.getWhoClicked().sendMessage(Utils.color(IridiumSkyblock.getMessages().notEnoughCrystals.replace("%prefix%", IridiumSkyblock.getConfiguration().prefix)));

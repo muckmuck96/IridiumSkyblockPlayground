@@ -36,6 +36,7 @@ public class User {
         return IridiumSkyblock.getIslandManager().islands.getOrDefault(islandID, null);
     }
 
+
     public Role getRole() {
         if (role == null) {
             if (getIsland() != null) {

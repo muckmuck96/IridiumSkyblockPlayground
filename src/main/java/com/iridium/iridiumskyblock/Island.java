@@ -4,6 +4,7 @@ import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.spawn.EssentialsSpawn;
 import com.iridium.iridiumskyblock.api.IslandCreateEvent;
 import com.iridium.iridiumskyblock.api.IslandDeleteEvent;
+import com.iridium.iridiumskyblock.api.IslandRegenEvent;
 import com.iridium.iridiumskyblock.configs.*;
 import com.iridium.iridiumskyblock.configs.Missions.Mission;
 import com.iridium.iridiumskyblock.configs.Missions.MissionData;
@@ -18,6 +19,7 @@ import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -724,6 +726,11 @@ public class Island {
     }
 
     public void pasteSchematic(boolean deleteBlocks) {
+        IslandRegenEvent event = new IslandRegenEvent(this);
+        Bukkit.getPluginManager().callEvent((Event)event);
+        if (event.isCancelled()) {
+            return;
+        }
         Calendar c = Calendar.getInstance();
         c.add(Calendar.SECOND, IridiumSkyblock.getConfiguration().regenCooldown);
         lastRegen = c.getTime();

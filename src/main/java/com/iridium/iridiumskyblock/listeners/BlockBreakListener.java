@@ -3,6 +3,7 @@ package com.iridium.iridiumskyblock.listeners;
 import com.iridium.iridiumskyblock.*;
 import com.iridium.iridiumskyblock.configs.Missions;
 import org.bukkit.Bukkit;
+import org.bukkit.CropState;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -45,13 +46,14 @@ public class BlockBreakListener implements Listener {
                     if (
                             conditions.isEmpty()
                                     ||
-                                    conditions.contains(XMaterial.matchXMaterial(block.getType()).name())
-                                    ||
                                     (
                                             block.getState().getData() instanceof Crops
                                                     &&
                                                     conditions.contains(((Crops) block.getState().getData()).getState().toString())
                                     )
+                                    ||
+                                    (conditions.contains(XMaterial.matchXMaterial(block.getType()).name()) && !conditions.contains(CropState.RIPE.toString()))
+
                     )
                         island.addMission(mission.name, 1);
                 }
