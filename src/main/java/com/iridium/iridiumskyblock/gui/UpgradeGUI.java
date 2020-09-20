@@ -45,7 +45,7 @@ public class UpgradeGUI extends GUI implements Listener {
             if (e.getSlot() == IridiumSkyblock.getUpgrades().sizeUpgrade.slot && IridiumSkyblock.getUpgrades().sizeUpgrade.enabled) {
                 if (IridiumSkyblock.getUpgrades().sizeUpgrade.upgrades.containsKey(getIsland().getSizeLevel() + 1)) {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().sizeUpgrade.upgrades.get(getIsland().getSizeLevel() + 1);
-                    IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.ISLAND_SIZE, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost));
+                    IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.ISLAND_SIZE, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost), p);
                     Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
                     if(islandUpgradeEvent.isCancelled()) {
                         return;
@@ -62,7 +62,7 @@ public class UpgradeGUI extends GUI implements Listener {
             if (e.getSlot() == IridiumSkyblock.getUpgrades().memberUpgrade.slot && IridiumSkyblock.getUpgrades().memberUpgrade.enabled) {
                 if (IridiumSkyblock.getUpgrades().memberUpgrade.upgrades.containsKey(getIsland().getMemberLevel() + 1)) {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().memberUpgrade.upgrades.get(getIsland().getMemberLevel() + 1);
-                    IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.MEMBER_SIZE, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost));
+                    IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.MEMBER_SIZE, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost), p);
                     Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
                     if(islandUpgradeEvent.isCancelled()) {
                         return;
@@ -79,7 +79,7 @@ public class UpgradeGUI extends GUI implements Listener {
             if (e.getSlot() == IridiumSkyblock.getUpgrades().warpUpgrade.slot && IridiumSkyblock.getUpgrades().warpUpgrade.enabled) {
                 if (IridiumSkyblock.getUpgrades().warpUpgrade.upgrades.containsKey(getIsland().getWarpLevel() + 1)) {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().warpUpgrade.upgrades.get(getIsland().getWarpLevel() + 1);
-                    IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.WARPS, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost));
+                    IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.WARPS, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost), p);
                     Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
                     if(islandUpgradeEvent.isCancelled()) {
                         return;
@@ -96,7 +96,7 @@ public class UpgradeGUI extends GUI implements Listener {
             if (e.getSlot() == IridiumSkyblock.getUpgrades().oresUpgrade.slot && IridiumSkyblock.getUpgrades().oresUpgrade.enabled) {
                 if (IridiumSkyblock.getUpgrades().oresUpgrade.upgrades.containsKey(getIsland().getOreLevel() + 1)) {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().oresUpgrade.upgrades.get(getIsland().getOreLevel() + 1);
-                    IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.GENERATOR, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost));
+                    IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.GENERATOR, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost), p);
                     Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
                     if(islandUpgradeEvent.isCancelled()) {
                         return;
