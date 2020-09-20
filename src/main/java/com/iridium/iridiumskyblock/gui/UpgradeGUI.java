@@ -47,7 +47,7 @@ public class UpgradeGUI extends GUI implements Listener {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().sizeUpgrade.upgrades.get(getIsland().getSizeLevel() + 1);
                     IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.ISLAND_SIZE, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost));
                     Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
-                    if(!islandUpgradeEvent.isUpgradable() || islandUpgradeEvent.isCancelled()) {
+                    if(islandUpgradeEvent.isCancelled()) {
                         return;
                     }
                     if (Utils.canBuy(p, upgrade.vaultCost, upgrade.crystalsCost)) {
@@ -64,7 +64,7 @@ public class UpgradeGUI extends GUI implements Listener {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().memberUpgrade.upgrades.get(getIsland().getMemberLevel() + 1);
                     IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.MEMBER_SIZE, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost));
                     Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
-                    if(!islandUpgradeEvent.isUpgradable() || islandUpgradeEvent.isCancelled()) {
+                    if(islandUpgradeEvent.isCancelled()) {
                         return;
                     }
                     if (Utils.canBuy(p, upgrade.vaultCost, upgrade.crystalsCost)) {
@@ -81,7 +81,7 @@ public class UpgradeGUI extends GUI implements Listener {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().warpUpgrade.upgrades.get(getIsland().getWarpLevel() + 1);
                     IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.WARPS, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost));
                     Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
-                    if(!islandUpgradeEvent.isUpgradable() || islandUpgradeEvent.isCancelled()) {
+                    if(islandUpgradeEvent.isCancelled()) {
                         return;
                     }
                     if (Utils.canBuy(p, upgrade.vaultCost, upgrade.crystalsCost)) {
@@ -98,7 +98,7 @@ public class UpgradeGUI extends GUI implements Listener {
                     Upgrades.IslandUpgrade upgrade = IridiumSkyblock.getUpgrades().oresUpgrade.upgrades.get(getIsland().getOreLevel() + 1);
                     IslandUpgradeEvent islandUpgradeEvent = new IslandUpgradeEvent(getIsland(), IslandUpgradeEvent.UpgradeType.GENERATOR, Utils.canBuyStandalone(p, upgrade.vaultCost, upgrade.crystalsCost));
                     Bukkit.getPluginManager().callEvent(islandUpgradeEvent);
-                    if(!islandUpgradeEvent.isUpgradable() || islandUpgradeEvent.isCancelled()) {
+                    if(islandUpgradeEvent.isCancelled()) {
                         return;
                     }
                     if (Utils.canBuy(p, upgrade.vaultCost, upgrade.crystalsCost)) {
