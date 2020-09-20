@@ -342,6 +342,26 @@ public class Utils {
         return false;
     }
 
+    public static boolean canBuyStandalone(Player p, double vault, int crystals) {
+        User u = User.getUser(p);
+        if (u.getIsland() != null) {
+            if (Vault.econ != null) {
+                if (Vault.econ.getBalance(p) >= vault && u.getIsland().getCrystals() >= crystals) {
+                    return true;
+                }
+            }
+            if (u.getIsland().money >= vault && u.getIsland().getCrystals() >= crystals) {
+                return true;
+            }
+        }
+        if (Vault.econ != null) {
+            if (Vault.econ.getBalance(p) >= vault && crystals == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static int getExpAtLevel(final int level) {
         if (level <= 15) {
             return (2 * level) + 7;
