@@ -1,5 +1,6 @@
 package com.iridium.iridiumskyblock.gui;
 
+import com.google.common.io.InsecureRecursiveDeleteException;
 import com.iridium.iridiumskyblock.IridiumSkyblock;
 import com.iridium.iridiumskyblock.Island;
 import com.iridium.iridiumskyblock.Utils;
@@ -81,6 +82,10 @@ public class BiomeGUI extends GUI implements Listener {
                 }
                 if (biomes.containsKey(e.getSlot())) {
                     getIsland().setBiome(biomes.get(e.getSlot()));
+                    if(!IridiumSkyblock.getConfiguration().instantBiomeUpdate) {
+                        IridiumSkyblock.getInstance().saveIslandManager();
+                        e.getWhoClicked().sendMessage(Utils.color(IridiumSkyblock.getMessages().biomeUpdateOnRestart.replace("%prefix%", IridiumSkyblock.getConfiguration().prefix)));
+                    }
                 }
             }
         }
