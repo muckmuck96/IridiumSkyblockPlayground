@@ -35,6 +35,7 @@ public class Config {
     public boolean allowExplosions = true;
     public boolean disablePvPBetweenIslandMembers = true;
     public boolean disablePvPOnIslands = true;
+    public boolean enableCrystalWithdraw = true;
     public int deleteBackupsAfterDays = 7;
     public int regenCooldown = 3600;
     public int distance = 151;
