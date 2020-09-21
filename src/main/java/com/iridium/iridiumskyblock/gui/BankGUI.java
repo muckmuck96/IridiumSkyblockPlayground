@@ -65,57 +65,59 @@ public class BankGUI extends GUI implements Listener {
                     }
                 }
             }
-            if (e.getSlot() == (IridiumSkyblock.getInventories().crystals.slot == null ? 13 : IridiumSkyblock.getInventories().crystals.slot)) {
-                if (e.getClick().equals(ClickType.SHIFT_LEFT)) {
-                    if ((island.getPermissions((u.islandID == island.getId() || island.isCoop(u.getIsland())) ? (island.isCoop(u.getIsland()) ? Role.Member : u.getRole()) : Role.Visitor).withdrawBank) || u.bypassing) {
-                        if (island.getCrystals() > 0) {
-                            if (p.getInventory().firstEmpty() != -1){
-                                p.getInventory().addItem(Utils.getCrystals(island.getCrystals()));
-                                island.setCrystals(0);
-                            } else {
-                                p.sendMessage(Utils.color(IridiumSkyblock.getMessages().inventoryFull
-                                        .replace("%prefix%", IridiumSkyblock.getConfiguration().prefix)));
+            if(IridiumSkyblock.getConfiguration().enableCrystalWithdraw) {
+                if (e.getSlot() == (IridiumSkyblock.getInventories().crystals.slot == null ? 13 : IridiumSkyblock.getInventories().crystals.slot)) {
+                    if (e.getClick().equals(ClickType.SHIFT_LEFT)) {
+                        if ((island.getPermissions((u.islandID == island.getId() || island.isCoop(u.getIsland())) ? (island.isCoop(u.getIsland()) ? Role.Member : u.getRole()) : Role.Visitor).withdrawBank) || u.bypassing) {
+                            if (island.getCrystals() > 0) {
+                                if (p.getInventory().firstEmpty() != -1){
+                                    p.getInventory().addItem(Utils.getCrystals(island.getCrystals()));
+                                    island.setCrystals(0);
+                                } else {
+                                    p.sendMessage(Utils.color(IridiumSkyblock.getMessages().inventoryFull
+                                            .replace("%prefix%", IridiumSkyblock.getConfiguration().prefix)));
+                                }
                             }
                         }
-                    }
-                } else if (e.getClick().equals(ClickType.SHIFT_RIGHT)) {
-                    int i = 0;
-                    for (ItemStack itemStack : p.getInventory().getContents()) {
-                        if (itemStack == null) {
+                    } else if (e.getClick().equals(ClickType.SHIFT_RIGHT)) {
+                        int i = 0;
+                        for (ItemStack itemStack : p.getInventory().getContents()) {
+                            if (itemStack == null) {
+                                i++;
+                                continue;
+                            }
+                            int crystals = Utils.getCrystals(itemStack) * itemStack.getAmount();
+                            if (crystals != 0) {
+                                island.setCrystals(island.getCrystals() + crystals);
+                                p.getInventory().clear(i);
+                            }
                             i++;
-                            continue;
                         }
-                        int crystals = Utils.getCrystals(itemStack) * itemStack.getAmount();
-                        if (crystals != 0) {
-                            island.setCrystals(island.getCrystals() + crystals);
-                            p.getInventory().clear(i);
-                        }
-                        i++;
-                    }
-                } else if (e.getClick().equals(ClickType.RIGHT)) {
-                    int i = 0;
-                    for (ItemStack itemStack : p.getInventory().getContents()) {
-                        if (itemStack == null) {
+                    } else if (e.getClick().equals(ClickType.RIGHT)) {
+                        int i = 0;
+                        for (ItemStack itemStack : p.getInventory().getContents()) {
+                            if (itemStack == null) {
+                                i++;
+                                continue;
+                            }
+                            int crystals = Utils.getCrystals(itemStack) * itemStack.getAmount();
+                            if (crystals != 0) {
+                                island.setCrystals(island.getCrystals() + crystals);
+                                p.getInventory().clear(i);
+                                return;
+                            }
                             i++;
-                            continue;
                         }
-                        int crystals = Utils.getCrystals(itemStack) * itemStack.getAmount();
-                        if (crystals != 0) {
-                            island.setCrystals(island.getCrystals() + crystals);
-                            p.getInventory().clear(i);
-                            return;
-                        }
-                        i++;
-                    }
-                } else if (e.getClick().equals(ClickType.LEFT)) {
-                    if ((island.getPermissions((u.islandID == island.getId() || island.isCoop(u.getIsland())) ? (island.isCoop(u.getIsland()) ? Role.Member : u.getRole()) : Role.Visitor).withdrawBank) || u.bypassing) {
-                        if (island.getCrystals() > 0) {
-                            if (p.getInventory().firstEmpty() != -1){
-                                island.setCrystals(island.getCrystals() - 1);
-                                p.getInventory().addItem(Utils.getCrystals(1));
-                            } else {
-                                p.sendMessage(Utils.color(IridiumSkyblock.getMessages().inventoryFull
-                                        .replace("%prefix%", IridiumSkyblock.getConfiguration().prefix)));
+                    } else if (e.getClick().equals(ClickType.LEFT)) {
+                        if ((island.getPermissions((u.islandID == island.getId() || island.isCoop(u.getIsland())) ? (island.isCoop(u.getIsland()) ? Role.Member : u.getRole()) : Role.Visitor).withdrawBank) || u.bypassing) {
+                            if (island.getCrystals() > 0) {
+                                if (p.getInventory().firstEmpty() != -1){
+                                    island.setCrystals(island.getCrystals() - 1);
+                                    p.getInventory().addItem(Utils.getCrystals(1));
+                                } else {
+                                    p.sendMessage(Utils.color(IridiumSkyblock.getMessages().inventoryFull
+                                            .replace("%prefix%", IridiumSkyblock.getConfiguration().prefix)));
+                                }
                             }
                         }
                     }
