@@ -18,6 +18,7 @@ import com.iridium.iridiumskyblock.support.*;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -34,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class IridiumSkyblock extends JavaPlugin {
 
@@ -207,6 +209,47 @@ public class IridiumSkyblock extends JavaPlugin {
                 getLogger().info("-------------------------------");
 
                 update();
+
+                if (!IridiumSkyblock.getConfiguration().instantBiomeUpdate) {
+                    getLogger().info("-------------------------------");
+                    getLogger().info("");
+                    getLogger().info(getDescription().getName() + " Updating Biomes!");
+                    getLogger().info("");
+                    getLogger().info("-------------------------------");
+
+                    AtomicInteger countUpdateBiomes = new AtomicInteger(0);
+
+                    getIslandManager().islands.forEach((integer, island) -> {
+                        Island is = getIslandManager().getIslandViaId(integer);
+                        if (is.isUpdateBiome()) {
+                            final World world = IridiumSkyblock.getIslandManager().getWorld();
+                            for (int X = is.getPos1().getChunk().getX(); X <= is.getPos2().getChunk().getX(); X++) {
+                                for (int Z = is.getPos1().getChunk().getZ(); Z <= is.getPos2().getChunk().getZ(); Z++) {
+                                    is.getPos1().getWorld().loadChunk(X, Z);
+                                }
+                            }
+                            is.getBiome().setBiome(is.getPos1(), is.getPos2());
+                            for (int X = is.getPos1().getChunk().getX(); X <= is.getPos2().getChunk().getX(); X++) {
+                                for (int Z = is.getPos1().getChunk().getZ(); Z <= is.getPos2().getChunk().getZ(); Z++) {
+                                    for (Player p : world.getPlayers()) {
+                                        if (p.getLocation().getWorld() == world) {
+                                            IridiumSkyblock.nms.sendChunk(p, world.getChunkAt(X, Z));
+                                        }
+                                    }
+                                }
+                            }
+                            is.setUpdateBiome(false);
+                            getLogger().info("Island " + integer + " updatet Biome to " + is.getBiome().name());
+                            countUpdateBiomes.getAndIncrement();
+                        }
+                    });
+
+                    getLogger().info("-------------------------------");
+                    getLogger().info("");
+                    getLogger().info(getDescription().getName() + " " + countUpdateBiomes + " Biomes updatet!");
+                    getLogger().info("");
+                    getLogger().info("-------------------------------");
+                }
             });
         } catch (Exception e) {
             sendErrorMessage(e);
