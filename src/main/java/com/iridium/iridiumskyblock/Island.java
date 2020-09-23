@@ -193,6 +193,10 @@ public class Island {
     @Setter
     private boolean updateBiome;
 
+    @Getter
+    @Setter
+    private Set<String> customQuestsFinished;
+
 
     private static final transient boolean ISFLAT = XMaterial.supports(13);
     private static transient Method getMaterial;
@@ -242,6 +246,7 @@ public class Island {
         this.bans = new HashSet<>();
         this.votes = new HashSet<>();
         this.updateBiome = false;
+        this.customQuestsFinished = new HashSet<>();
         init();
         Bukkit.getPluginManager().callEvent(new IslandCreateEvent(owner, this));
     }
