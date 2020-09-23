@@ -189,6 +189,14 @@ public class Island {
 
     private Date lastRegen;
 
+    @Getter
+    @Setter
+    private boolean updateBiome;
+
+    @Getter
+    @Setter
+    private Set<String> customQuestsFinished;
+
 
     private static final transient boolean ISFLAT = XMaterial.supports(13);
     private static transient Method getMaterial;
@@ -237,6 +245,8 @@ public class Island {
         this.coop = new HashSet<>();
         this.bans = new HashSet<>();
         this.votes = new HashSet<>();
+        this.updateBiome = false;
+        this.customQuestsFinished = new HashSet<>();
         init();
         Bukkit.getPluginManager().callEvent(new IslandCreateEvent(owner, this));
     }
@@ -1172,16 +1182,21 @@ public class Island {
 
     public void setBiome(XBiome biome) {
         this.biome = biome;
-        final World world = IridiumSkyblock.getIslandManager().getWorld();
-        biome.setBiome(getPos1(), getPos2());
-        for (int X = getPos1().getChunk().getX(); X <= getPos2().getChunk().getX(); X++) {
-            for (int Z = getPos1().getChunk().getZ(); Z <= getPos2().getChunk().getZ(); Z++) {
-                for (Player p : world.getPlayers()) {
-                    if (p.getLocation().getWorld() == world) {
-                        IridiumSkyblock.nms.sendChunk(p, world.getChunkAt(X, Z));
+
+        if(IridiumSkyblock.getConfiguration().instantBiomeUpdate) {
+            final World world = IridiumSkyblock.getIslandManager().getWorld();
+            biome.setBiome(getPos1(), getPos2());
+            for (int X = getPos1().getChunk().getX(); X <= getPos2().getChunk().getX(); X++) {
+                for (int Z = getPos1().getChunk().getZ(); Z <= getPos2().getChunk().getZ(); Z++) {
+                    for (Player p : world.getPlayers()) {
+                        if (p.getLocation().getWorld() == world) {
+                            IridiumSkyblock.nms.sendChunk(p, world.getChunkAt(X, Z));
+                        }
                     }
                 }
             }
+        } else {
+            setUpdateBiome(true);
         }
     }
 

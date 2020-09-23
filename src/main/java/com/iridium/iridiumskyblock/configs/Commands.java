@@ -50,4 +50,5 @@ public class Commands {
     public RecalculateCommand recalculateCommand = new RecalculateCommand();
     public AddValueCommand addValueCommand = new AddValueCommand();
     public RemoveValueCommand removeValueCommand = new RemoveValueCommand();
+    public CustomQuestCommand customQuestCommand = new CustomQuestCommand();
 }
