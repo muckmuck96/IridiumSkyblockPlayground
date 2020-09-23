@@ -686,12 +686,123 @@ public class Island {
         failedGenerators = new HashSet<>();
         coopInvites = new HashSet<>();
         boosterid = Bukkit.getScheduler().scheduleAsyncRepeatingTask(IridiumSkyblock.getInstance(), () -> {
+            if(spawnerBooster == 60) {
+                for (String player : members) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bSpawner Booster §7läuft in §b1 Minute §7ab.");
+                    }
+                }
+            } else if(spawnerBooster == 10) {
+                for (String player : members) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bSpawner Booster §7läuft in §b10 Sekunden §7ab.");
+                    }
+                }
+            } else if(spawnerBooster > 0 && spawnerBooster <= 5) {
+                for (String player : members) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bSpawner Booster §7läuft in §b" + spawnerBooster + (spawnerBooster > 1 ? " Sekunden" : " Sekunde") + " §7ab.");
+                    }
+                }
+            }
+            if(farmingBooster == 60) {
+                for (String player : members) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bFarm Booster §7läuft in §b1 Minute §7ab.");
+                    }
+                }
+            } else if(farmingBooster == 10) {
+                for (String player : members) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bFarm Booster §7läuft in §b10 Sekunden §7ab.");
+                    }
+                }
+            } else if(farmingBooster > 0 && farmingBooster <= 5) {
+                for (String player : members) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bFarm Booster §7läuft in §b" + farmingBooster + (farmingBooster > 1 ? " Sekunden" : " Sekunde") + " §7ab.");
+                    }
+                }
+            }
+            if(expBooster == 60) {
+                for (String player : members) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bErfahrungs Booster §7läuft in §b1 Minute §7ab.");
+                    }
+                }
+            } else if(expBooster == 10) {
+                for (String player : members) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bErfahrungs Booster §7läuft in §b10 Sekunden §7ab.");
+                    }
+                }
+            } else if(expBooster > 0 && expBooster <= 5) {
+                for (String player : members) {
+                    Player p = Bukkit.getPlayer(player);
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bErfahrungs Booster §7läuft in §b" + expBooster + (expBooster > 1 ? " Sekunden" : " Sekunde") + " §7ab.");
+                    }
+                }
+            }
+            if(flightBooster == 60) {
+                for (String player : members) {
+                    Player p;
+                    if(player.contains("-")) {
+                        p = Bukkit.getPlayer(UUID.fromString(player));
+                    } else {
+                        p = Bukkit.getPlayer(player);
+                    }
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bFlug Booster §7läuft in §b1 Minute §7ab.");
+                    }
+                }
+            } else if(flightBooster == 10) {
+                for (String player : members) {
+                    Player p;
+                    if(player.contains("-")) {
+                        p = Bukkit.getPlayer(UUID.fromString(player));
+                    } else {
+                        p = Bukkit.getPlayer(player);
+                    }
+                    if (p != null) {
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bFlug Booster §7läuft in §b10 Sekunden §7ab.");
+                    }
+                }
+            } else if(flightBooster > 0 && flightBooster <= 5) {
+                for (String player : members) {
+                    Player p;
+                    if(player.contains("-")) {
+                        p = Bukkit.getPlayer(UUID.fromString(player));
+                    } else {
+                        p = Bukkit.getPlayer(player);
+                    }
+                    if (p != null) {
+                        if(p.isFlying()) {
+                            p.sendTitle("§bFlug Booster §7läuft ab in", "§c" + flightBooster + (flightBooster > 1 ? " Sekunden" : " Sekunde"));
+                        }
+                        p.sendMessage("§b§lSkyblock §8» §7Der §bFlug Booster §7läuft in §b" + flightBooster + (flightBooster > 1 ? " Sekunden" : " Sekunde") + " §7ab.");
+                    }
+                }
+            }
             if (spawnerBooster > 0) spawnerBooster--;
             if (farmingBooster > 0) farmingBooster--;
             if (expBooster > 0) expBooster--;
             if (flightBooster == 1) {
                 for (String player : members) {
-                    Player p = Bukkit.getPlayer(player);
+                    Player p;
+                    if(player.contains("-")) {
+                        p = Bukkit.getPlayer(UUID.fromString(player));
+                    } else {
+                        p = Bukkit.getPlayer(player);
+                    }
                     if (p != null) {
                         if ((!p.hasPermission("IridiumSkyblock.Fly") && !p.hasPermission("iridiumskyblock.fly")) && p.getGameMode().equals(GameMode.SURVIVAL)) {
                             p.setAllowFlight(false);
