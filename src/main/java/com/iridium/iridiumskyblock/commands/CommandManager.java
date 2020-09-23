@@ -69,6 +69,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         registerCommand(IridiumSkyblock.getCommands().recalculateCommand);
         registerCommand(IridiumSkyblock.getCommands().removeValueCommand);
         registerCommand(IridiumSkyblock.getCommands().addValueCommand);
+        registerCommand(IridiumSkyblock.getCommands().customQuestCommand);
     }
 
     public void registerCommand(com.iridium.iridiumskyblock.commands.Command command) {
